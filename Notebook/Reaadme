@@ -1,7 +1,224 @@
-dHere
-we have notebooks in which we have done the hands-on for PySpark. 
-Day - 1 
-we did hands-on in data reading
+📅 Day 1 — PySpark Introduction
+📌 Concepts Covered
 
-Day - 2
-we did schema definition
+Introduction to PySpark
+
+Advantages of PySpark
+
+Why PySpark is used for Big Data Processing
+
+Key Points
+
+PySpark is the Python API for Apache Spark.
+
+It allows processing of large-scale distributed datasets efficiently.
+
+Supports parallel processing, fault tolerance, and high-performance analytics.
+
+Practical Implementation (Databricks)
+
+Executed queries to read different file formats.
+
+Files Read
+
+CSV
+
+JSON
+
+Example Operations Performed
+
+Loading datasets
+
+Inspecting data structure
+
+Basic data exploration
+
+📅 Day 2 — Spark Core Components
+📌 Concepts Covered
+1️⃣ SparkContext
+
+Entry point for low-level Spark functionality
+
+Used mainly when working with RDDs
+
+2️⃣ SparkSession
+
+Unified entry point for working with DataFrames and Spark SQL
+
+Replaced SQLContext, HiveContext, and SparkContext in modern Spark
+
+📌 Data Structures in Spark
+🔹 RDDs (Resilient Distributed Datasets)
+
+Lowest level distributed data abstraction
+
+Immutable
+
+Fault-tolerant
+
+Distributed across cluster nodes
+
+🔹 DataFrames
+
+Structured data representation
+
+Similar to tables in relational databases
+
+Optimized using Catalyst Optimizer
+
+📌 Schema Definition in PySpark
+
+Two approaches were implemented:
+
+1️⃣ DDL Schema Definition
+
+Schema defined using DDL format
+
+Example:
+
+column_name datatype,
+column_name datatype
+2️⃣ StructType() Schema Definition
+
+Schema defined programmatically using:
+
+from pyspark.sql.types import *
+from pyspark.sql.functions import *
+
+Using:
+
+StructType
+
+StructField
+
+Common data types used:
+
+StringType
+
+IntegerType
+
+DoubleType
+
+📅 Day 3 — Lazy Evaluation & Transformations
+📌 Concepts Covered
+🔹 Lazy Evaluation
+
+Spark does not execute transformations immediately.
+
+Instead:
+
+Transformations are recorded
+
+Execution happens only when an action is triggered
+
+This allows Spark to optimize the execution plan before running the job.
+
+🔹 Transformations
+
+Transformations create a new RDD or DataFrame from an existing one.
+
+Two main types:
+
+Narrow Transformations
+
+Data remains within the same partition
+
+No data shuffling required
+
+Examples:
+
+map()
+
+filter()
+
+Wide Transformations
+
+Data moves across partitions
+
+Requires data shuffling
+
+Examples:
+
+groupBy
+
+reduceByKey
+
+🔹 Transformations vs Actions
+Type	Description
+Transformations	Define operations on data
+Actions	Trigger execution and return results
+
+Spark executes the RDD lineage only when an action is called.
+
+📌 Databricks Implementation
+
+Transformation queries executed using:
+
+select
+
+alias
+
+Used to:
+
+Select specific columns
+
+Rename columns for readability
+
+📅 Day 4 — Spark Execution Architecture
+📌 Concepts Covered
+🔹 Job
+
+A job is triggered whenever an action is executed in Spark.
+
+🔹 Stage
+
+A job is divided into multiple stages based on shuffle boundaries.
+
+🔹 Task
+
+Smallest unit of execution
+
+Runs on a single partition
+
+🔹 DAG (Directed Acyclic Graph)
+
+Spark builds a DAG of transformations before executing a job.
+
+This helps Spark to:
+
+Optimize execution
+
+Reduce unnecessary computations
+
+📌 Databricks Transformation Queries
+Clause Used
+
+filter
+
+Three scenarios were implemented.
+
+Scenario 1
+
+Filter data where:
+
+Fat_Content = "Regular"
+Scenario 2
+
+Slice data where:
+
+Item_Type = "Soft Drinks"
+AND Item_Weight = 10
+Scenario 3
+
+Fetch the data where:
+
+Tier IN ("Tier 1", "Tier 2")
+AND Outlet_Size IS NULL
+Additional Transformation
+withColumnRenamed
+
+Used to rename columns in a DataFrame.
+
+Example:
+
+df.withColumnRenamed("old_column_name", "new_column_name")
